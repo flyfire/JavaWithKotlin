@@ -1,6 +1,7 @@
 package com.solarexsoft.kotlininaction
 
 import java.io.File
+import kotlin.jvm.internal.Ref
 
 /**
  * Created by houruhou on 2018/10/24.
@@ -27,4 +28,6 @@ fun main(args: Array<String>) {
     println(subscribingUser.nickname)
     val facebookUser = KKUser.newFacebookUser(1)
     println(facebookUser.nickname)
+    val a = Ref.IntRef()
+    a.element = 5
 }
