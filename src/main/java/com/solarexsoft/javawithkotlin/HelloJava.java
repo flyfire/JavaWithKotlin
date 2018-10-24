@@ -2,6 +2,7 @@ package com.solarexsoft.javawithkotlin;
 
 import com.solarexsoft.kotlininaction.*;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -33,5 +34,8 @@ public class HelloJava {
         StringBuilder sb = new StringBuilder("Kotlin?");
         SolarexUtils.setLastChar(sb, '!');
         System.out.println(sb);
+        CaseInsensitiveFileComparator.INSTANCE.compare(new File("/z"), new File("/c"));
+        KKUser.Companion.newFacebookUser(1);
+        KKUser.Companion.newSubscirbeingUser("a@b.com");
     }
 }
