@@ -30,4 +30,7 @@ fun main(args: Array<String>) {
     val file = File("~/.ssh/.test")
     println(file.findHiddenFile())
     println("------------------")
+    with(StringBuilder()){
+
+    }
 }

@@ -27,8 +27,10 @@ fun printMessageWithPrefix(messages: Collection<String>, prefix: String) {
     }
 }
 fun main(args: Array<String>) {
+    var a = "111"
     println(sum.javaClass)
     println(sum(1, 2))
+    println(a)
 
     val response = listOf<String>("200 OK", "404 not found", "418 I'm a teapot", "500 Internal Server Error")
     printProblemCounts(response)
