@@ -9,11 +9,17 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'kotlin-noarg'
+
+noArg{
+    annotations "com.solarexsoft.kotlinexercise.POJO"
+}
 
 sourceCompatibility = 1.8
 
