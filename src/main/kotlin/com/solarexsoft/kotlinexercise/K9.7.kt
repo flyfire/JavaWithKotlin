@@ -19,3 +19,26 @@ open class SingletonHolder<out T, in A>(creator: (A) -> T) {
         }
     }
 }
+
+class Context
+class DBManager private constructor(context: Context) {
+    init {
+        println("DBManager initialized")
+    }
+    companion object : SingletonHolder<DBManager, Context>(::DBManager)
+
+    fun insert() {
+        println("insert data into db")
+    }
+
+    fun delete() {
+        println("delete data from db")
+    }
+}
+
+fun main(args: Array<String>) {
+    val context = Context()
+    DBManager.getInstance(context).insert()
+    DBManager.getInstance(context).insert()
+    DBManager.getInstance(context).delete()
+}
