@@ -1,5 +1,6 @@
 package com.solarexsoft.kotlininaction
 
+import com.solarexsoft.javawithkotlin.HelloJava
 import java.util.*
 
 /**
@@ -48,6 +49,13 @@ fun main(args: Array<String>) {
         print("$i ")
     }*/
     println("Kotlin" in "Java".."Scala")
+
+    "abc".isNullOrBlank()
+
+    val a = HelloJava()
+    val b = a.platformType
+    val c = a.platformCollection
+    c.add("a")
 
     val number = 10
     val percentage =

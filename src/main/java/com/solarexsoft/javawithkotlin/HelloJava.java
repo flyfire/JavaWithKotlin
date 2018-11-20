@@ -4,11 +4,15 @@ import com.solarexsoft.kotlininaction.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by houruhou on 11/12/2017.
  */
 public class HelloJava {
+    public String platformType = null;
+    public Collection<String> platformCollection = new ArrayList<>();
+
     public static void main(String[] args){
         User user = new User(1, "solarex");
         System.out.println(user);
