@@ -25,6 +25,9 @@ fun main(args: Array<String>) {
     val solarexJava = cost("Java构造方法") {
         Test::class.java.getDeclaredConstructor(String::class.java, Int::class.java).newInstance("solarex", 18)
     }
+//    Test::class.memberProperties.forEach{
+//        println(it::class)
+//    }
     cost("Kotlin访问属性") {
         Test::class.memberProperties.firstOrNull { it.name == "age" }?.get(solarexKt)
     }
@@ -37,6 +40,7 @@ fun main(args: Array<String>) {
     cost("Java修改属性") {
         Test::class.java.getDeclaredField("age").apply { isAccessible = true }.set(solarexJava, 1000)
     }
+//    Test::class.memberFunctions.forEach(::println)
     cost("Kotlin访问方法") {
         Test::class.memberFunctions.first { it.name == "toString" }.call(solarexKt)
     }

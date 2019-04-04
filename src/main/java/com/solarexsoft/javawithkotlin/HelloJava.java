@@ -1,5 +1,6 @@
 package com.solarexsoft.javawithkotlin;
 
+import com.solarexsoft.kotlinexercise.TestInline;
 import com.solarexsoft.kotlininaction.*;
 
 import java.io.File;
@@ -13,7 +14,7 @@ public class HelloJava {
     public String platformType = null;
     public Collection<String> platformCollection = new ArrayList<>();
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         User user = new User(1, "solarex");
         System.out.println(user);
         People people = new People("Solarex", false);
@@ -30,6 +31,11 @@ public class HelloJava {
         SolarexUtils.setOpCount(1000);
         SolarexUtils.performOperation();
         SolarexUtils.reportOperationCount();
+        try {
+            Class.forName("com.solarexsoft.kotlinexercise.TestInline");
+        } catch (Exception e) {
+
+        }
         System.out.println(SolarexUtils.lastChar("Solarex"));
         View view = new Button();
         view.click();

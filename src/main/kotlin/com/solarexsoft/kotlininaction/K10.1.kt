@@ -20,6 +20,7 @@ fun main(args: Array<String>) {
     println(kClass.simpleName)
     kClass.members.forEach{
         print(it.name + " ")
+        println(it::class)
     }
     println()
     val (x,y) = person
