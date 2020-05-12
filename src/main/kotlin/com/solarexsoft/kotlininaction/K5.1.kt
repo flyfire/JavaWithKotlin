@@ -1,6 +1,5 @@
 package com.solarexsoft.kotlininaction
 
-import com.sun.javafx.geom.Path2D
 
 /**
  * Created by houruhou on 2018/10/24.
