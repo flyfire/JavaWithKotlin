@@ -16,10 +16,10 @@ lateinit var a:Person
 
 val f = ::abc
 
-fun main() {
-    if (a != null){
-        println("aaaa")
-    }
+fun main(args: Array<String>) {
+    println(::a.isInitialized)
+    println("aaaa")
+    test()
 }
 
 
