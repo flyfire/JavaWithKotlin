@@ -12,8 +12,19 @@ fun main(args: Array<String>) {
     startCallback(1) {
         println("javascript:jsFunc('$it')")
     }
+    var lastSeq = 1
+    var currentSeq = 0
+    currentSeq = ++lastSeq
+    println("last = $lastSeq current = $currentSeq")
+    val abc = ABC()
+    println(abc.javaClass.name)
+    println(abc.javaClass.simpleName)
+    println(abc::class.qualifiedName)
+    println(abc::class.simpleName)
 }
 
 fun startCallback(reqCode: Int, callback: (result: Any) -> Unit) {
     callback(true)
 }
+
+class ABC
