@@ -48,7 +48,9 @@ data class PracticeVideoInfo(
         var uploaderId: String = "",
         var useMachineTranslation: Boolean = false,
         var vip: Boolean = false,
-        var avatarUrl: String = ""
+        var avatarUrl: String = "",
+        var newTitle: String = "",
+        var worksName: String = ""
 )
 
 data class Subtitles(
@@ -112,7 +114,9 @@ data class PracticeDetail(
         val isBuy: Boolean = false,
         val minGuidCount: Int = 3,
         val trainBuyUrl: String = "",
-        val topicSubtitles: List<VIPTopicSubtitle> = emptyList()
+        val topicSubtitles: List<VIPTopicSubtitle> = emptyList(),
+        val showRegistrationReward: Boolean = false,
+        val videoShareType: String = ""
 )
 
 data class SimpleTagInfo(
