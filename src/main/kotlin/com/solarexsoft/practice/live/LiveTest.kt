@@ -1,4 +1,4 @@
-package com.solarexsoft.live
+package com.solarexsoft.practice.live
 
 import com.google.gson.Gson
 
