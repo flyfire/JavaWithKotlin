@@ -10,6 +10,7 @@ class OuterClass {
         class Init(val name: String): State()
     }
     var state: State? = null
+    val a = 1
 
     fun hi() {
         println("hi")
@@ -17,6 +18,7 @@ class OuterClass {
 
     fun State.Init.world() {
         println("world")
+        println(a)
     }
 
     fun hello() {
