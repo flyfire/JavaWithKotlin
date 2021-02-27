@@ -1,0 +1,14 @@
+com/solarexsoft/javawithkotlin/Ref.java
+ com.solarexsoft.javawithkotlin.Ref
+com/solarexsoft/javawithkotlin/Closure.java
+ com.solarexsoft.javawithkotlin.Closure
+ com.solarexsoft.javawithkotlin.Closure$1
+ com.solarexsoft.javawithkotlin.Closure$2
+com/solarexsoft/javawithkotlin/HelloJava.java
+ com.solarexsoft.javawithkotlin.HelloJava
+com/solarexsoft/javawithkotlin/TestDataClass.java
+ com.solarexsoft.javawithkotlin.TestDataClass
+com/solarexsoft/javawithkotlin/ReturnType.java
+ com.solarexsoft.javawithkotlin.ReturnType
+ com.solarexsoft.javawithkotlin.ReturnType$Processor
+ com.solarexsoft.javawithkotlin.ReturnType$Test
