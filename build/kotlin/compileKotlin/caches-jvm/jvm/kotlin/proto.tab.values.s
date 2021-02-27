@@ -1,1 +1,0 @@
-Î¾ò¿ÐÅnámámámámámámámîq
