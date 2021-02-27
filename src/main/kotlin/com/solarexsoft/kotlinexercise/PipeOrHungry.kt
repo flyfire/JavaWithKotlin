@@ -12,6 +12,9 @@ fun main() {
     }.map {
         println("map $it")
         it * 2 + 1
+    }.flatMap {
+        println("flatmap $it")
+        0 until it
     }.forEach {
         println("foreach $it")
     }
@@ -23,6 +26,9 @@ fun main() {
             }.map {
                 println("map $it")
                 it * 2 + 1
+            }.flatMap {
+                println("flatmap $it")
+                (0 until it).asSequence()
             }.forEach {
                 println("foreach $it")
             }
