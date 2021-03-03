@@ -8,15 +8,14 @@ import kotlin.reflect.full.companionObject
  * Desc:
  */
 sealed class Page<out P : PageParam> {
+
     companion object {
-        fun <T: PageParam> jump(map: Map<KClass<out Page<T>>, () -> T>) {
-            map.forEach { t, u ->
-                
-            }
+        fun <T: PageParam> jump(map: Map<out Page<T>, () -> T>) {
+
         }
     }
 
-    object SuperVip : Page<PageParam.Source>() {
+    class SuperVip(type: String) : Page<PageParam.Source>() {
         override fun jump(p: PageParam.Source) {
             println(p)
         }
@@ -44,5 +43,6 @@ fun main() {
     map[Page.Learning::class] = {
         PageParam.Multi("hello", "https://www.baidu.com")
     }
-
+    val superVip = Page.SuperVip("Oral")
+    superVip.jump(map[superVip::class]())
 }
