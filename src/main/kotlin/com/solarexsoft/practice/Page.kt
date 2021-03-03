@@ -44,5 +44,5 @@ fun main() {
         PageParam.Multi("hello", "https://www.baidu.com")
     }
     val superVip = Page.SuperVip("Oral")
-    superVip.jump(map[superVip::class]())
+//    superVip.jump(map[superVip::class]())
 }
