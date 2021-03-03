@@ -1,12 +1,20 @@
 package com.solarexsoft.practice
 
 import kotlin.reflect.KClass
+import kotlin.reflect.full.companionObject
 
 /**
  * Created by Solarex on 3/3/21/11:02 AM
  * Desc:
  */
 sealed class Page<out P : PageParam> {
+    companion object {
+        fun <T: PageParam> jump(map: Map<KClass<out Page<T>>, () -> T>) {
+            map.forEach { t, u ->
+                
+            }
+        }
+    }
 
     object SuperVip : Page<PageParam.Source>() {
         override fun jump(p: PageParam.Source) {
@@ -20,14 +28,21 @@ sealed class Page<out P : PageParam> {
         }
     }
 
-    fun jump(map: Map<KClass<out Page<@UnsafeVariance P>>, () -> @UnsafeVariance P>) {
-
-    }
-
     abstract fun jump(p: @UnsafeVariance P)
 }
 
 sealed class PageParam {
     class Source(source: String) : PageParam()
     class Multi(content: String, url: String) : PageParam()
+}
+
+fun main() {
+    val map = mutableMapOf<KClass<out Page<@kotlin.UnsafeVariance PageParam>>, () -> @kotlin.UnsafeVariance PageParam>()
+    map[Page.SuperVip::class] = {
+        PageParam.Source("feed_list")
+    }
+    map[Page.Learning::class] = {
+        PageParam.Multi("hello", "https://www.baidu.com")
+    }
+
 }
