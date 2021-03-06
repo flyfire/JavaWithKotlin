@@ -54,3 +54,10 @@ class ModelDelegate<T: AbsModel>(val kClass: KClass<T>): ReadOnlyProperty<Any, T
         }
     }
 }
+
+fun main() {
+    initModels()
+    val mainViewModel = MainViewModel()
+    mainViewModel.databaseModel.query("select * from student").let(::println)
+    mainViewModel.networkModel.get("https://flyfire.github.io").let(::println)
+}
