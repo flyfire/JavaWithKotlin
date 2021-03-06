@@ -21,24 +21,24 @@ class ConfirmNotification(
         val onCancel: OnCancel
 ) : Notification(title, content)
 
-open class NotificationBuilder {
+open class NotificationBuilder<Self: NotificationBuilder<Self>>: SelfType<Self> {
     protected var title: String = ""
     protected var content: String = ""
 
-    fun title(title: String): NotificationBuilder {
+    fun title(title: String): Self {
         this.title = title
-        return this
+        return self
     }
 
-    fun content(content: String): NotificationBuilder {
+    fun content(content: String): Self {
         this.content = content
-        return this
+        return self
     }
 
     open fun build() = Notification(title, content)
 }
 
-class ConfirmNotificationBuilder: NotificationBuilder() {
+class ConfirmNotificationBuilder: NotificationBuilder<ConfirmNotificationBuilder>() {
     private var onConfirm: OnConfirm = EmptyFunction
     private var onCancel: OnCancel = EmptyFunction
 
@@ -63,5 +63,12 @@ interface SelfType<Self> {
 fun main() {
     ConfirmNotificationBuilder()
             .title("Hello")
+            .onCancel {
+                println("on cancel")
+            }
+            .content("world")
+            .onConfirm {
+                println("on confirm")
+            }.build().onConfirm()
 
 }
