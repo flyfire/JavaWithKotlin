@@ -40,4 +40,6 @@ fun main() {
 
     println(person.group === copiedPerson.group)
     println(person.group === deepCopiedPerson.group)
+
+    println(deepCopiedPerson)
 }
