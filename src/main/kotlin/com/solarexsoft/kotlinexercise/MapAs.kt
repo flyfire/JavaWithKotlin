@@ -1,5 +1,6 @@
 package com.solarexsoft.kotlinexercise
 
+import java.lang.IllegalArgumentException
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
 
@@ -48,7 +49,7 @@ inline fun <reified From: Any, reified To: Any> From.mapAs(): To {
 inline fun <reified To:Any> Map<String, Any?>.mapAs(): To {
     return To::class.primaryConstructor!!.let { primaryConstructor ->
         primaryConstructor.parameters.map { parameter ->
-            val value = this[parameter.name]
+            val value = (this[parameter.name] ?: if (parameter.type.isMarkedNullable) null else throw IllegalArgumentException("${parameter.name} required not null"))
             parameter to value
         }.toMap().let(primaryConstructor::callBy)
     }
