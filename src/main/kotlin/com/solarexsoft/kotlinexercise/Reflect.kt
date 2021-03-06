@@ -33,6 +33,18 @@ interface Api {
 fun <T> Any.safeAs(): T? {
     return this as? T
 }
+
+abstract class SuperType<T> {
+    val typeParameter by lazy {
+        this::class.supertypes.first()
+                .arguments.first().type
+    }
+    val typeParameterJava by lazy {
+        this.javaClass.genericSuperclass.safeAs<ParameterizedType>()?.actualTypeArguments?.first()
+    }
+}
+
+class SubType: SuperType<String>()
 @ExperimentalStdlibApi
 fun main() {
     val cls = AA::class
@@ -58,4 +70,8 @@ fun main() {
             .genericReturnType as ParameterizedType).actualTypeArguments.forEach(::println)
     Api::class.java.getDeclaredMethod("getUsers").genericReturnType
             .safeAs<ParameterizedType>()?.actualTypeArguments?.forEach(::println)
+    println("*" * 20)
+    val subType = SubType()
+    println(subType.typeParameter)
+    println(subType.typeParameterJava)
 }
