@@ -25,32 +25,54 @@ class NetworkModel: AbsModel() {
     fun get(url: String): String = """{"code" : 0}"""
 }
 
+class SpModel: AbsModel() {
+    init {
+        Models.run {
+            register("SpModel2")
+        }
+    }
+
+    fun hello() = println("${hashCode()},solarex")
+}
+
 fun initModels() {
     DatabaseModel()
     NetworkModel()
+    SpModel()
 }
 
 object Models {
-    private val modelMap = ConcurrentHashMap<Class<out AbsModel>, AbsModel>()
+    private val modelMap = ConcurrentHashMap<String, AbsModel>()
 
-    fun AbsModel.register() {
-        modelMap[this.javaClass] = this
+    fun AbsModel.register(name: String = this.javaClass.simpleName) {
+        modelMap[name] = this
     }
 
-    fun <T: AbsModel> KClass<T>.get(): T {
-        return modelMap[this.java] as T
+    fun <T: AbsModel> String.get(): T {
+        return modelMap[this] as T
     }
 }
 
 class MainViewModel {
-    val databaseModel by ModelDelegate(DatabaseModel::class)
-    val networkModel by ModelDelegate(NetworkModel::class)
+//    val databaseModel by ModelDelegate(DatabaseModel::class)
+//    val networkModel by ModelDelegate(NetworkModel::class)
+    val databaseModel: DatabaseModel by ModelDelegate
+    val networkModel: NetworkModel by ModelDelegate
+    val spModel: SpModel by ModelDelegate
+    val spModel2: SpModel by ModelDelegate
 }
 
-class ModelDelegate<T: AbsModel>(val kClass: KClass<T>): ReadOnlyProperty<Any, T> {
-    override fun getValue(thisRef: Any, property: KProperty<*>): T {
+//class ModelDelegate<T: AbsModel>(val kClass: KClass<T>): ReadOnlyProperty<Any, T> {
+//    override fun getValue(thisRef: Any, property: KProperty<*>): T {
+//        return Models.run {
+//            kClass.get()
+//        }
+//    }
+//}
+object ModelDelegate {
+    operator fun <T: AbsModel> getValue(thisRef: Any, property: KProperty<*>): T {
         return Models.run {
-            kClass.get()
+            property.name.capitalize().get()
         }
     }
 }
@@ -60,4 +82,6 @@ fun main() {
     val mainViewModel = MainViewModel()
     mainViewModel.databaseModel.query("select * from student").let(::println)
     mainViewModel.networkModel.get("https://flyfire.github.io").let(::println)
+    mainViewModel.spModel.hello()
+    mainViewModel.spModel2.hello()
 }
