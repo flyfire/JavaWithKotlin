@@ -6,10 +6,12 @@ abstract class AbsQuestion(
     val questionId: String = ""
 )
 
-data class WordQuestion(
-    val correctOptions: String = ""
+class WordQuestion(
+    private val correctOptions: String = ""
 ) : AbsQuestion() {
-
+    override fun toString(): String {
+        return "questionId = $questionId, correctOptions = $correctOptions"
+    }
 }
 
 fun main() {
