@@ -21,6 +21,12 @@ fun main() {
     AQuestionView::class.supertypes.first().arguments.forEach {
         println(it.type)
     }
+    val list = listOf<Int>()
+    val sub = list.subList(1, 3)
+    val a = mutableListOf<Int>()
+    a.removeAll { true }
+    1 != 0
+    list.forEach {  }
 }
 
 
