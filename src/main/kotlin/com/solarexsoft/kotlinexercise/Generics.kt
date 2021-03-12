@@ -1,12 +1,12 @@
 package com.solarexsoft.kotlinexercise
 
-abstract class PracticeQuestion
+abstract class AbstractQuestion
 
-class AQuestion : PracticeQuestion()
+class AQuestion : AbstractQuestion()
 
-class BQuestion : PracticeQuestion()
+class BQuestion : AbstractQuestion()
 
-interface IQuestionView<T: PracticeQuestion> {
+interface IQuestionView<T: AbstractQuestion> {
     fun bindData(data: T)
 }
 
@@ -24,7 +24,6 @@ fun main() {
 }
 
 
-
 interface GenericSuper<T : GenericSuper<T>> {
     fun h(t: T): T
 }
@@ -37,7 +36,7 @@ interface YYYY<out T : XXXX<YYYY<T>>>
 
 
 
-interface ZZZZ<T: PracticeQuestion, U: IQuestionView<T>>
+interface ZZZZ<T: AbstractQuestion, U: IQuestionView<T>>
 
 interface H1<T : H1<T>> : GenericSuper<T> {
 
