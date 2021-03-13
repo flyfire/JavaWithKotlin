@@ -11,7 +11,7 @@ import kotlin.reflect.full.functions
 import kotlin.reflect.full.valueParameters
 
 /**
- * Author:Solarex
+ * Author: Solarex
  * Time: 22:22/2021/3/7
  */
 data class User(
