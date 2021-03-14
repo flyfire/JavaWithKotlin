@@ -20,6 +20,12 @@ data class User(
     val bio: String
 )
 
+data class Fork(
+    val id: String,
+    val owner: User,
+    val html_url: String
+)
+
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
 annotation class IApi(val url: String)
@@ -54,7 +60,7 @@ interface GithubApi {
     @IApi("repos")
     interface Repos {
         @Get("{owner}/{repo}/forks")
-        fun forks(owner: String, repo: String)
+        fun forks(owner: String, repo: String): List<Fork>
     }
 }
 
@@ -97,10 +103,10 @@ object RetrofitApi {
                 val endPoint = kFunction.findAnnotation<Get>()!!.url.takeIf{ it.isNotEmpty() } ?: kFunction.name
                 val compiledEndPoint = Regex(PATH_PATTERN).findAll(endPoint).map {
                     matchResult ->
-                    matchResult.groups[1]!!.range to paramterMap[matchResult.groups[2]!!.value]
+                    matchResult.groups[1]!!.value to paramterMap[matchResult.groups[2]!!.value]
                 }.fold(endPoint) {
                     acc, pair ->
-                    acc.replaceRange(pair.first, pair.second.toString())
+                    acc.replace(pair.first, pair.second.toString())
                 }
 
                 val url = "${apiPath}${compiledEndPoint}"
@@ -115,6 +121,10 @@ object RetrofitApi {
 }
 
 fun main() {
+    val reposApi = RetrofitApi.create<GithubApi.Repos>()
+    reposApi.forks("dbacinski", "Design-Patterns-In-Kotlin").map {
+        it.html_url
+    }.forEach(::println)
     val usersApi = RetrofitApi.create<GithubApi.Users>()
     println(usersApi.get("flyfire"))
     println(usersApi.followers("flyfire").map {
