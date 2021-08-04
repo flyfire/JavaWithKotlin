@@ -6,16 +6,16 @@ object M {
     }
 }
 
-interface A {
+interface AAAA {
     fun a1()
     fun a2()
     fun a3()
 
-    companion object : A by M.get()
+    companion object : AAAA by M.get()
 }
 
 fun main() {
-    A.a1()
-    A.a2()
-    A.a3()
+    AAAA.a1()
+    AAAA.a2()
+    AAAA.a3()
 }
