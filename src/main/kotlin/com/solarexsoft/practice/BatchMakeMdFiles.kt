@@ -2,29 +2,24 @@ package com.solarexsoft.practice
 
 import java.io.File
 
-fun main() {
-    /*
-    for (i in 0..113) {
-        if (i < 10) {
-            println("00$i")
-            File("/Users/houruhou/workspace/learning-notes-md/the-beauty-of-design-pattern/ch00$i.md").createNewFile()
-        } else if (i < 100) {
-            println("0$i")
-            File("/Users/houruhou/workspace/learning-notes-md/the-beauty-of-design-pattern/ch0$i.md").createNewFile()
-        } else {
-            println(i)
-            File("/Users/houruhou/workspace/learning-notes-md/the-beauty-of-design-pattern/ch$i.md").createNewFile()
-        }
-    }
-     */
+// count dir
+fun main(args: Array<String>) {
+    val count = args[0].toInt()
+    val directory = args[1]
+    val split = directory.split("/")
+    val directoryName = split[split.lastIndex]
+    println("count: $count")
+    println("directory: $directory")
+    println("directoryName: $directoryName")
     val sb = StringBuilder()
-    for (i in 0..113) {
-        val index = when {
-            i < 10 -> "00$i"
-            i < 100 -> "0$i"
-            else -> "$i"
+    for (i in 0 until count) {
+        val index = if (i < 10) {
+            "0$i"
+        } else {
+            "$i"
         }
-        sb.append("\t* [](the-beauty-of-design-pattern/ch$index.md)\n")
+        File("$directory/ch$index.md").createNewFile()
+        sb.append("\t* []($directoryName/ch$index.md)\n")
     }
     println(sb)
 }
