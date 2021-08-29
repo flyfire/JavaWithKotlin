@@ -1,5 +1,6 @@
 package com.solarexsoft.coroutinelearning
 
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -13,6 +14,11 @@ fun main() {
                 delay(500L)
             }
         }
+        val defer = async {
+            delay(500)
+            "${Thread.currentThread().name}-Solarex"
+        }
+        println(defer.await())
         delay(1300L)
         println("${Thread.currentThread().name} waiting")
         job.cancel()
