@@ -16,3 +16,7 @@ fun test() {
     a.run()
     b.run()
 }
+
+fun main(args: Array<String>) {
+    test()
+}

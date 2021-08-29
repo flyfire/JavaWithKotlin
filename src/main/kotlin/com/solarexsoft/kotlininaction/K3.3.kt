@@ -49,7 +49,7 @@ fun main(args: Array<String>) {
     println("Solarex".lastCharK())
     val list = arrayListOf<Int>(1, 2, 3)
     list.last()
-    list.max()
+    list.maxOrNull()
     println(list.joinToString())
     val strList = listOf<String>("one", "two", "three")
     println(strList.join())

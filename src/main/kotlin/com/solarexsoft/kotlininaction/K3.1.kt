@@ -16,5 +16,5 @@ fun main(args: Array<String>) {
     println(strings.javaClass)
     println(strings.last())
     val numbers = setOf<Int>(1, 14, 2)
-    println(numbers.max())
+    println(numbers.maxOrNull())
 }

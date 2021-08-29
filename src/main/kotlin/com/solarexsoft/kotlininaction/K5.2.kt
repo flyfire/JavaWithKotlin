@@ -27,8 +27,8 @@ fun main(args: Array<String>) {
     println(peopleM)
     println(people.map(KPerson::age))
     println(people.filter { it.age > 30 }.map { it.name })
-    println(people.filter { it.age == people.maxBy(KPerson::age)?.age }.map { it.name })
-    val maxAge = people.maxBy { it.age }?.age
+    println(people.filter { peopleIt -> peopleIt.age == people.maxByOrNull { it.age }?.age }.map { it.name })
+    val maxAge = people.maxByOrNull { it.age }?.age
     println(people.filter { it.age == maxAge }.map { it.name })
 
     val numbers = mapOf<Int, String>(1.to("one"), 2 to "two")

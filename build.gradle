@@ -2,7 +2,7 @@ group 'com.solarexsoft'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.4.21'
+    ext.kotlin_version = '1.5.30'
 
     repositories {
         mavenCentral()
@@ -30,6 +30,8 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
