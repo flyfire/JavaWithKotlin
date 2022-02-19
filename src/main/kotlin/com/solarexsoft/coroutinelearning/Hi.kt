@@ -45,7 +45,7 @@ fun main(args: Array<String>) {
 
 class Connection
 
-open class SynchronizedArgLazyImpl<Arg, Result>(initializer: (Arg) -> Result, lock: Any? = null) {
+open class SingletonHolder<Arg, Result>(initializer: (Arg) -> Result, lock: Any? = null) {
     private var initializer: ((Arg) -> Result)? = initializer
 
     @Volatile
@@ -70,7 +70,7 @@ open class SynchronizedArgLazyImpl<Arg, Result>(initializer: (Arg) -> Result, lo
 }
 
 class DBPool(initCap: Int) {
-    companion object : SynchronizedArgLazyImpl<Int, DBPool>(::DBPool)
+    companion object : SingletonHolder<Int, DBPool>(::DBPool)
 
     private val poolList = mutableListOf<Connection>()
     private val lock = Object()
