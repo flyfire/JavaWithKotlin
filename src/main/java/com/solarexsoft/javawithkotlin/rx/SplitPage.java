@@ -12,7 +12,7 @@ import java.util.List;
 /*
  * Created by Solarex on 2024/08/12 11:02
  */
-public class Batch {
+public class SplitPage {
     public static void main(String[] args) throws InterruptedException {
         splitPage(100, 20);
         Thread.sleep(1000);
