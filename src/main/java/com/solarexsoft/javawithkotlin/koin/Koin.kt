@@ -1,59 +1,67 @@
 package com.solarexsoft.javawithkotlin.koin
 
-import java.lang.IllegalStateException
+import java.lang.IllegalArgumentException
+import kotlin.reflect.KClass
 
 
 /*
  * Created by Solarex on 2024/11/08 11:25
  */
-data class BeanDefinition<T : Any>(
-    val factory: KoinContext.(Map<String, Any>) -> T,
-    val isSingleton: Boolean = true
-)
+class CircularDependencyException(message: String) : Exception(message)
+class Koin {
 
-class KoinContext {
-    private val definitions = mutableMapOf<Class<*>, BeanDefinition<*>>()
-    private val instances = mutableMapOf<Class<*>, Any>()
-    private val creatingStack = mutableListOf<Class<*>>()
+    companion object {
+        fun create(configuration: Koin.() -> Unit): Koin {
+            return Koin().apply(configuration)
+        }
+    }
+    data class Definition<T>(
+        val factory: Koin.() -> T,
+        val isSingleton: Boolean
+    )
 
-    fun <T : Any> register(clazz: Class<T>, definition: BeanDefinition<T>) {
-        definitions[clazz] = definition
+    val definitions = mutableMapOf<KClass<*>, Definition<*>>()
+    private val singletons = mutableMapOf<KClass<*>, Any>()
+    private val beingCreated = mutableSetOf<KClass<*>>()
+
+    inline fun <reified T : Any> single(noinline definition: Koin.() -> T) {
+        definitions[T::class] = Definition(definition, true)
     }
 
-    fun <T : Any> get(clazz: Class<T>, parameters: Map<String, Any> = emptyMap()): T {
-        if (creatingStack.contains(clazz)) {
-            throw IllegalStateException("circular dependency detected: ${creatingStack.joinToString { " -> " }} -> ${clazz.name}")
+    inline fun <reified T : Any> factory(noinline definition: Koin.() -> T) {
+        definitions[T::class] = Definition(definition, false)
+    }
+
+    fun <T : Any> get(clazz: KClass<T>): T {
+        val definition =
+            definitions[clazz] ?: throw IllegalArgumentException("No definition found for ${clazz.simpleName}")
+        if (beingCreated.contains(clazz)) {
+            val dependencyChain = beingCreated.joinToString(" -> ") {
+                it.simpleName ?: "Unknown"
+            }
+            throw CircularDependencyException("Circular dependency detected: $dependencyChain -> ${clazz.simpleName}")
+        }
+        if (definition.isSingleton && clazz in singletons) {
+            return singletons[clazz] as T
         }
         try {
-            creatingStack.add(clazz)
-
-            if (definitions[clazz]?.isSingleton == true && instances.containsKey(clazz)) {
-                return instances[clazz] as T
+            beingCreated.add(clazz)
+            val instance = if (definition.isSingleton) {
+                singletons.getOrPut(clazz) { definition.factory(this)!! }
+            } else {
+                definition.factory(this)
             }
-
-            val definition = definitions[clazz] ?: throw IllegalStateException("No definition found for ${clazz.name}")
-
-            val instance = (definition as BeanDefinition<T>).factory.invoke(this, parameters)
-
-            if (definition.isSingleton) {
-                instances[clazz] = instance
-            }
-
-            return instance
+            return instance as T
         } finally {
-            creatingStack.removeLast()
+            beingCreated.remove(clazz)
         }
     }
-}
 
-class Module {
-    val definitions = mutableListOf<Pair<Class<*>, BeanDefinition<*>>>()
-
-    inline fun <reified T : Any> single(noinline definition: KoinContext.(Map<String, Any>) -> T) {
-        definitions.add(T::class.java to BeanDefinition(definition, true))
-    }
-
-    inline fun <reified T : Any> factory(noinline defintion: KoinContext.(Map<String, Any>) -> T) {
-        definitions.add(T::class.java to BeanDefinition(defintion, false))
+    fun clear() {
+        definitions.clear()
+        singletons.clear()
+        beingCreated.clear()
     }
 }
+
+inline fun <reified T: Any> Koin.get(): T = get(T::class)
